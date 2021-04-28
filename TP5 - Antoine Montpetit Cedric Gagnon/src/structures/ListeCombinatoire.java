@@ -12,7 +12,7 @@ import exceptions.ConstructeurException;
  * Voir les combinatoires sur "Wikipédia" :
  * https://fr.wikipedia.org/wiki/Combinatoire
  *
- * @author Vos noms
+ * @author Cédric Gagnon
  */
 public class ListeCombinatoire
 {
@@ -41,6 +41,15 @@ public class ListeCombinatoire
 	public ListeCombinatoire(int pValDebut, int pValFin, int pLongCombinaison)
 			throws ConstructeurException
 	{
+		if(!(validerLimitesEns(pValDebut,pValFin) && validerLongCombinaison(pLongCombinaison,pValFin-pValDebut+1))) {
+			throw new ConstructeurException("Construction invalide de liste combinatoire");
+		}
+		debutEns=Math.min(pValDebut,pValFin);
+		finEns=Math.max(pValDebut,pValFin);
+		longCombinaison=pLongCombinaison;
+		ensembleValeurs=genererEnsembleValeurs();
+		listeDeCombinaisons = new ArrayList<List<Integer>>();
+		produireListeCombinaisons(ensembleValeurs,longCombinaison,new ArrayList<Integer>());
 	}
 
 	public int getDebutEns()
@@ -138,7 +147,11 @@ public class ListeCombinatoire
 	// TODO genererEnsembleValeurs - Compléter le code de la méthode
 	public List<Integer> genererEnsembleValeurs()
 	{
-		return null;
+		ArrayList<Integer> out = new ArrayList<Integer>();
+		for(int i=debutEns;i<finEns+1;i++) {
+			out.add(i);
+		}
+		return out;
 	}
 
 	private void produireListeCombinaisons(List<Integer> pEnsembleValeurs,
@@ -199,6 +212,18 @@ public class ListeCombinatoire
 	@Override
 	public String toString()
 	{
-		return "";
+		return ("Limite de l'ensemble : [" + debutEns + ", " + finEns + "]\n"+
+				"Longueur combinaison : " + longCombinaison + "\n" + 
+				"Ensemble : " + ensembleValeurs + "\n" + 
+				"Voici les " + listeDeCombinaisons.size() + " combinaisons : " + listeDeCombinaisons
+				);
+	}
+	
+	public static void main(String[] args)
+	{
+		ListeCombinatoire test = new ListeCombinatoire(1,5,3);
+		System.out.println(test);
+		//test.produireListeCombinaisons(test.ensembleValeurs, 5, new ArrayList<Integer>());
+		//System.out.println(test.listeDeCombinaisons);
 	}
 }

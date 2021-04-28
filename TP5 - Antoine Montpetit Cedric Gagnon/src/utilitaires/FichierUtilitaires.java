@@ -1,14 +1,20 @@
 package utilitaires;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.io.StreamTokenizer;
 import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.swing.JFileChooser;
 
 /**
  * Classe utilitaires pour la gestion de fichiers
  *
- * @author Vos noms
+ * @author Cédric Gagnon
  */
 public class FichierUtilitaires
 {
@@ -25,7 +31,17 @@ public class FichierUtilitaires
 	// TODO enregistrerMessage - Compléter le code de la méthode
 	public static boolean enregistrerMessage(String message, File nomFichier)
 	{
-		return true;
+		boolean success=true;
+		try {
+			PrintWriter output = new PrintWriter(new FileOutputStream(nomFichier,true),true);
+			output.println(message);
+			output.close();
+		}
+		catch(Exception e) {
+			success=false;
+		}
+		
+		return(success);
 	}
 
 	/**
@@ -38,7 +54,22 @@ public class FichierUtilitaires
 	// TODO lireMessage - Compléter le code de la méthode
 	public static String lireMessage(File nomFichier)
 	{
-		return "";
+		String out="";
+		try {
+			FileReader input = new FileReader(nomFichier);
+			char curr=' ';
+			int code=0;
+			while (code!=-1 && code!=10) {
+				code=input.read();
+				curr=(char)code;
+				out+=curr;
+			}
+			input.close();
+		}
+		catch(Exception e) {
+		}
+		out=out.length()>0?out.substring(0,out.length()-1):out;
+		return out;
 	}
 
 	/**
@@ -54,7 +85,23 @@ public class FichierUtilitaires
 	// TODO lireDictionnaire - Compléter le code de la méthode
 	public static SortedSet<String> lireDictionnaire(File nomDic)
 	{
-		return null;
+		SortedSet<String> out=new TreeSet<String>();
+		try {
+			StreamTokenizer input = new StreamTokenizer(new BufferedReader(new FileReader(nomDic)));
+			while(true) {
+				input.nextToken();
+				if(input.sval==null) {
+					//oui je sais terrible façon de sortir de la loop, mais ça marche
+					throw new Exception("sortie");
+				}
+				out.add(input.sval.toLowerCase());
+			}
+		}
+		catch(Exception e) {}
+		if(out.size()==0){
+			out=null;
+		}
+		return out;
 	}
 
 	/**
@@ -68,7 +115,11 @@ public class FichierUtilitaires
 	// TODO obtenirNomFichier - Compléter le code de la méthode
 	public static File obtenirNomFichier(String option)
 	{
-		return null;
+		String value=InputUtilitaires.saisirString(option);
+		File out=null;
+		if(value!="")
+			out=new File(value);
+		return out;
 	}
 
 	/**
@@ -90,5 +141,13 @@ public class FichierUtilitaires
 			f = chooser.getSelectedFile();
 
 		return f;
+	}
+	
+	public static void main(String[] args)
+	{
+		//FichierUtilitaires.enregistrerMessage("hello world",new File("test.txt"));
+		//System.out.println(FichierUtilitaires.lireMessage(new File("test.txt")));
+		//System.out.println(FichierUtilitaires.lireDictionnaire(new File("dictionnaire.txt")));
+		System.out.println(obtenirNomFichier("Entrez le nom du fichier:"));
 	}
 }

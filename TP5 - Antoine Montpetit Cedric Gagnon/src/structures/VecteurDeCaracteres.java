@@ -8,7 +8,7 @@ import exceptions.ConstructeurException;
  * Classe qui permet de produire une liste de caractères selon une constante ou
  * selon un tableau de caractères reçu.
  *
- * @author Vos noms
+ * @author Cédric Gagnon
  *
  */
 
@@ -33,6 +33,7 @@ public class VecteurDeCaracteres
 	// TODO VecteurDeCaracteres - Compléter le code de la méthode
 	public VecteurDeCaracteres() throws ConstructeurException
 	{
+		this(TAB_CHAR_DEFAUT);
 	}
 
 	/**
@@ -46,6 +47,13 @@ public class VecteurDeCaracteres
 	// TODO VecteurDeCaracteres - Compléter le code de la méthode
 	public VecteurDeCaracteres(char[] tabChar) throws ConstructeurException
 	{
+		if(tabChar.length==0)
+			throw new ConstructeurException("Tableau de caractères vide");
+		tableCaracteres=new ArrayList<Character>();
+		for(int i=0;i<tabChar.length;i++) {
+			tableCaracteres.add(Character.toUpperCase(tabChar[i]));
+		}
+		System.out.println(tableCaracteres);
 	}
 
 	/**
@@ -60,7 +68,7 @@ public class VecteurDeCaracteres
 	// TODO getCaractere - Compléter le code de la méthode
 	public char getCaractere(int index) throws ArrayIndexOutOfBoundsException
 	{
-		return ' ';
+		return tableCaracteres.get(index);
 	}
 
 	/**
@@ -73,7 +81,12 @@ public class VecteurDeCaracteres
 	// TODO getIndice - Compléter le code de la méthode
 	public int getIndice(char car)
 	{
-		return 0;
+		int index=-1;
+		for(int i=0;i<tableCaracteres.size() && index==-1;i++) {
+			if(tableCaracteres.get(i).equals(car)) 
+				index=i;
+		}
+		return index;
 	}
 
 	/**
@@ -84,7 +97,7 @@ public class VecteurDeCaracteres
 	// TODO getTaille - Compléter le code de la méthode
 	public int getTaille()
 	{
-		return 0;
+		return tableCaracteres.size();
 	}
 
 	/**
@@ -101,5 +114,10 @@ public class VecteurDeCaracteres
 	public String toString()
 	{
 		return "Table de correspondance = " + this.tableCaracteres;
+	}
+	
+	public static void main(String[] args)
+	{
+		//VecteurDeCaracteres test = new VecteurDeCaracteres(new char[]{'a','1','√'});
 	}
 }
