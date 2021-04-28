@@ -7,7 +7,7 @@ import utilitaires.MathUtilitaires;
 /**
  * Classe utilitaires pour la gestion des matrices carrées
  *
- * @author Vos noms
+ * @author Antoine Montpetit
  */
 public class MatriceUtilitaires
 {
