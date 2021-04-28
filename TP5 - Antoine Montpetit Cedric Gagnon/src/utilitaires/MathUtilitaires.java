@@ -1,11 +1,13 @@
 package utilitaires;
 
+import java.lang.reflect.Array;
 import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Classe utilitaires pour les calculs mathématiques
  *
- * @author Vos noms
+ * @author Antoine Montpetit
  */
 public class MathUtilitaires
 {
@@ -18,15 +20,20 @@ public class MathUtilitaires
 	 * @return la valeur de la factorielle pour la valeur reçue. 1 si la valeur
 	 *         reçue n'est pas valide.
 	 */
-	// TODO fact - Compléter le code de la méthode
 	public static double fact(int valFact)
 	{
-		return 0;
+		double num = 1;
+		if (valFact >= 1)
+		{
+			num = valFact * fact(valFact - 1);
+		}
+
+		return num;
 	}
 
 	/**
-	 * Retourne le modulo (selon sa définition mathématique) de valeurs positives
-	 * ou négatives reçues.
+	 * Retourne le modulo (selon sa définition mathématique) de valeurs
+	 * positives ou négatives reçues.
 	 *
 	 * Attention : Vérifier vos résultats surtout pour des valeurs négatives!!!
 	 * Voir la définition mathématique (partie entière E) sur wiki
@@ -42,10 +49,20 @@ public class MathUtilitaires
 	 *
 	 * @throws ArithmeticException pour la division par zéro.
 	 */
-	// TODO modulo - Compléter le code de la méthode
 	public static int modulo(int pVal, int pMod) throws ArithmeticException
 	{
-		return 0;
+		int value = 0;
+
+		if (pMod != 0)
+		{
+			value = (int) (pVal - (pMod * Math.floor(pVal / pMod)));
+		}
+		else
+		{
+			throw new ArithmeticException();
+		}
+
+		return value;
 	}
 
 	/**
@@ -58,10 +75,33 @@ public class MathUtilitaires
 	 * @return un ensemble de diviseurs positifs ou null si la valeur est 0
 	 *         (infinité de valeurs).
 	 */
-	// TODO diviseursDe - Compléter le code de la méthode
 	public static SortedSet<Integer> diviseursDe(int pVal)
 	{
-		return null;
+		int i = 1;
+		TreeSet<Integer> diviseurs = null;
+		if (pVal != 0)
+		{
+			diviseurs = new TreeSet<Integer>();
+			do
+			{
+
+				if (modulo(pVal, i) == 0)
+					diviseurs.add(i);
+
+				i++;
+
+			}
+			while (i <= Math.sqrt(pVal));
+
+			Object[] diviseursArray = diviseurs.toArray();
+			for (int j = 0; j < diviseursArray.length; j++)
+			{
+				diviseurs.add(pVal / (int) diviseursArray[j]);
+			}
+
+		}
+
+		return diviseurs;
 	}
 
 	/**
@@ -74,10 +114,9 @@ public class MathUtilitaires
 	 *
 	 * @return vrai si la valeur reçue est un nombre premier, faux sinon
 	 */
-	// TODO estPremier - Compléter le code de la méthode
 	public static boolean estPremier(int pVal)
 	{
-		return true;
+		return diviseursDe(pVal).toArray().length == 2 && pVal > 0;
 	}
 
 	/**
@@ -88,10 +127,23 @@ public class MathUtilitaires
 	 * @return un ensemble des X nombres premiers ou null si aucun nombre
 	 *         premier trouvé.
 	 */
-	// TODO xPremier - Compléter le code de la méthode
 	public static SortedSet<Integer> xPremier(int pVal)
 	{
-		return null;
+
+		TreeSet<Integer> premiers = null;
+		if (estPremier(pVal) != true)
+		{
+			premiers = new TreeSet<Integer>();
+			for (int i = 1; i < pVal; i++)
+			{
+				if (estPremier(i))
+				{
+					premiers.add(i);
+				}
+			}
+		}
+
+		return premiers;
 	}
 
 	/**
@@ -106,10 +158,25 @@ public class MathUtilitaires
 	 *
 	 * @return le PGCD ou 0
 	 */
-	// TODO PGCD - Compléter le code de la méthode
 	public static int PGCD(int pVal1, int pVal2)
 	{
-		return 0;
+		int nombre = 0;
+
+		int plusPetit = Math.min(pVal1, pVal2);
+		int plusGrand = Math.max(pVal1, pVal2);
+
+		int reste = modulo(plusGrand, plusPetit);
+
+		if (reste == 0)
+		{
+			nombre = plusPetit;
+		}
+		else
+		{
+			nombre = PGCD(reste, plusPetit);
+		}
+
+		return nombre;
 	}
 
 	/**
@@ -118,10 +185,10 @@ public class MathUtilitaires
 	 * de la recherche de ces nombres.
 	 *
 	 * En mathématiques, on dit que 2 entiers a et b sont premiers entre eux, si
-	 * leur plus grand commun diviseur (PGCD) est égal à 1 ; en d'autres termes, s'ils
-	 * n'ont aucun diviseur autre que 1 et –1 en commun. De manière équivalente,
-	 * ils sont premiers entre eux si, et seulement si, ils n'ont aucun facteur
-	 * premier en commun.
+	 * leur plus grand commun diviseur (PGCD) est égal à 1 ; en d'autres termes,
+	 * s'ils n'ont aucun diviseur autre que 1 et –1 en commun. De manière
+	 * équivalente, ils sont premiers entre eux si, et seulement si, ils n'ont
+	 * aucun facteur premier en commun.
 	 *
 	 * Exemple : l'ensemble des nombres qui sont "premier entre eux" avec 26 en
 	 * partant de 1 est {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25}
@@ -133,10 +200,25 @@ public class MathUtilitaires
 	 * @return un ensemble des X nombres "premiers entres eux" avec valRef à
 	 *         partir de valDepart reçue ou null.
 	 */
-	// TODO xPremierEntreEux - Compléter le code de la méthode
 	public static SortedSet<Integer> xPremierEntreEux(int valDepart, int valRef)
 	{
-		return null;
+
+		TreeSet<Integer> coprime = new TreeSet<Integer>();
+
+		for (int i = valDepart; i < valRef; i++)
+		{
+			if (PGCD(i, valRef) == 1)
+			{
+				coprime.add(i);
+			}
+		}
+
+		if (coprime.size() == 0)
+		{
+			coprime = null;
+		}
+
+		return coprime;
 	}
 
 	/**
@@ -148,10 +230,12 @@ public class MathUtilitaires
 	 *
 	 * @return la valeur générée aléatoirement.
 	 */
-	// TODO alea - Compléter le code de la méthode
 	public static int alea(int pMin, int pMax)
 	{
-		return 0;
+		int max = Math.max(pMin, pMax);
+		int min = Math.min(pMin, pMax);
+
+		return (int) (min + (Math.random() * (max - min)));
 	}
 
 	/**
