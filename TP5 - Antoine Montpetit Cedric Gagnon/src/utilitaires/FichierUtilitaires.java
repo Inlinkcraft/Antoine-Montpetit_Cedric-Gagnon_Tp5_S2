@@ -85,20 +85,13 @@ public class FichierUtilitaires
 	{
 		SortedSet<String> out=new TreeSet<String>();
 		try {
-			StreamTokenizer input = new StreamTokenizer(new BufferedReader(new FileReader(nomDic)));
+			BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(nomDic)));
 			while(true) {
-				input.nextToken();
-				if(input.sval==null) {
-					//oui je sais terrible façon de sortir de la loop, mais ça marche
-					throw new Exception("sortie");
-				}
-				out.add(input.sval.toLowerCase());
+				out.add(input.readLine().trim().toLowerCase());
 			}
 		}
 		catch(Exception e) {}
-		if(out.size()==0){
-			out=null;
-		}
+		out=(out.size()==0)?null:out;
 		return out;
 	}
 
@@ -144,8 +137,8 @@ public class FichierUtilitaires
 	public static void main(String[] args)
 	{
 		//FichierUtilitaires.enregistrerMessage("hello world",new File("test.txt"));
-		System.out.println(FichierUtilitaires.lireMessage(new File("test.txt")));
-		//System.out.println(FichierUtilitaires.lireDictionnaire(new File("dictionnaire.txt")));
-		System.out.println(obtenirNomFichier("Entrez le nom du fichier:"));
+		//System.out.println(FichierUtilitaires.lireMessage(new File("test.txt")));
+		System.out.println(FichierUtilitaires.lireDictionnaire(new File("dictionnaire.txt")));
+		//System.out.println(obtenirNomFichier("Entrez le nom du fichier:"));
 	}
 }
