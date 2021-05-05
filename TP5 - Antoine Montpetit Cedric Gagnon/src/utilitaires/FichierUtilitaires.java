@@ -106,10 +106,11 @@ public class FichierUtilitaires
 	// TODO obtenirNomFichier - Compléter le code de la méthode
 	public static File obtenirNomFichier(String option)
 	{
-		String value=InputUtilitaires.saisirString(option);
-		File out=null;
-		if(value!="")
-			out=new File(value);
+		File out=obtenirNomFichier(option, new File(""));
+		//String value=InputUtilitaires.saisirString(option);
+		//File out=null;
+		//if(value!="")
+		//	out=new File(value);
 		return out;
 	}
 
@@ -138,7 +139,7 @@ public class FichierUtilitaires
 	{
 		//FichierUtilitaires.enregistrerMessage("hello world",new File("test.txt"));
 		//System.out.println(FichierUtilitaires.lireMessage(new File("test.txt")));
-		System.out.println(FichierUtilitaires.lireDictionnaire(new File("dictionnaire.txt")));
-		//System.out.println(obtenirNomFichier("Entrez le nom du fichier:"));
+		//System.out.println(FichierUtilitaires.lireDictionnaire(new File("dictionnaire.txt")));
+		System.out.println(obtenirNomFichier("Sélectionner Fichier"));
 	}
 }
