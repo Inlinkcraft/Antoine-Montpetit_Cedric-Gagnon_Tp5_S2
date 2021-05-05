@@ -1,9 +1,12 @@
 package structures;
 
+import java.io.File;
+import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.StringTokenizer;
 
 import exceptions.ConstructeurException;
+import utilitaires.FichierUtilitaires;
 import utilitaires.MathUtilitaires;
 import utilitaires.MatriceUtilitaires;
 
@@ -30,11 +33,24 @@ public class MessageChiffrerDechiffrer implements iCrypto
 	 *
 	 * @throws ConstructeurException
 	 */
-	// TODO MessageChiffrerDechiffrer - Compléter le code de la méthode
 	public MessageChiffrerDechiffrer(VecteurDeCaracteres vecCars,
-			ListeMatricesChiffrement listeMats, SortedSet<String> dico)
+			ListeMatricesChiffrement listeMats, SortedSet<String> _dico)
 			throws ConstructeurException
 	{
+
+		if (validerVecCaracteres(vecCars) && validerMatsEncodage(listeMats)
+				&& validerDico(_dico))
+		{
+			vecCaracteres = vecCars;
+			listeMatricesCandidates = listeMats;
+			dico = _dico;
+		}
+		else
+		{
+			throw new ConstructeurException(
+					"Les paramêtre du constructeur sont invalide");
+		}
+
 	}
 
 	private void setVecCaracteres(VecteurDeCaracteres pVec)
@@ -91,31 +107,145 @@ public class MessageChiffrerDechiffrer implements iCrypto
 	}
 
 	@Override
-	// TODO validerMessageSelonDico - Compléter le code de la méthode
 	public boolean validerMessageSelonDico(String message,
 			float pourcentageDeReussite)
 	{
-		return true;
+		String[] allWords = message.split(" ");
+		int wordsFound = 0;
+		int totalWords = 0;
+
+		for (String word : allWords)
+		{
+			if (!word.equals(" "))
+			{
+				totalWords++;
+				if (dico.contains(word))
+				{
+					wordsFound++;
+				}
+			}
+		}
+
+		return (wordsFound / totalWords) >= pourcentageDeReussite;
 	}
 
 	@Override
-	// TODO ajusterMessageBrute - Compléter le code de la méthode
 	public String ajusterMessageBrute(String message, int longVoulue)
 	{
-		return "";
+
+		for (int i = 0; i < longVoulue; i++)
+		{
+			message += CAR_DE_COMPLEMENT;
+		}
+
+		return message;
 	}
 
 	@Override
-	// TODO encoder - Compléter le code de la méthode
 	public String encoder(String message)
 	{
-		return "";
+
+		listeMatricesCandidates.choisirMatriceCourante();
+
+		message = ajusterMessageBrute(message, listeMatricesCandidates
+				.getDimension()
+				- (message.length() % listeMatricesCandidates.getDimension()));
+
+		int[][] mat = getMatriceCourante();
+		String[] cuts = new String[message.length()
+				/ listeMatricesCandidates.getDimension()];
+
+		for (int i = 0; i < cuts.length - 1; i++)
+		{
+			cuts[i] = message.substring(
+					i * listeMatricesCandidates.getDimension(),
+					(i + 1) * listeMatricesCandidates.getDimension());
+		}
+
+		String encode = "";
+
+		for (int i = 0; i < cuts.length; i++)
+		{
+			for (int row = 0; row < listeMatricesCandidates
+					.getDimension(); row++)
+			{
+				int charIndex = 0;
+				for (int col = 0; col < listeMatricesCandidates
+						.getDimension(); col++)
+				{
+					charIndex += mat[row][col]
+							* vecCaracteres.getIndice(cuts[i].charAt(col));
+				}
+				charIndex = charIndex % vecCaracteres.getTaille();
+				encode += vecCaracteres.getCaractere(charIndex);
+			}
+		}
+
+		return encode;
 	}
 
 	@Override
 	// TODO decoder - Compléter le code de la méthode
 	public String decoder(String message)
 	{
-		return "";
+		String decode = "";
+		
+		boolean found = false;
+		for (int j = 0; j < listeMatricesCandidates.getNombreMatricesCandidates() || found == false; j++)
+		{
+			int[][] inverseMat = listeMatricesCandidates.getMatriceCouranteInverseHill();
+			String[] cuts = new String[message.length()/ listeMatricesCandidates.getDimension()];
+
+			for (int i = 0; i < cuts.length - 1; i++)
+			{
+				cuts[i] = message.substring(i * listeMatricesCandidates.getDimension(),(i + 1) * listeMatricesCandidates.getDimension());
+			}
+
+			decode = "";
+
+			for (int i = 0; i < cuts.length; i++)
+			{
+				for (int row = 0; row < listeMatricesCandidates.getDimension(); row++)
+				{
+					int charIndex = 0;
+					for (int col = 0; col < listeMatricesCandidates.getDimension(); col++)
+					{
+						charIndex += inverseMat[row][col] * vecCaracteres.getIndice(cuts[i].charAt(col));
+					}
+					charIndex = charIndex % vecCaracteres.getTaille();
+					decode += vecCaracteres.getCaractere(charIndex);
+				}
+			}
+			
+			found = validerMessageSelonDico(decode, POURCENTAGE_ACCEPTABLE);
+		}
+
+		return decode;
+	}
+	
+	public static void main(String[] args)
+	{
+		System.out.println("hey");
+		Scanner sn = new Scanner(System.in);
+		MessageChiffrerDechiffrer MS = new MessageChiffrerDechiffrer(
+				new VecteurDeCaracteres(), 
+				new ListeMatricesChiffrement(1, 15, 3, 28),
+				FichierUtilitaires.lireDictionnaire(new File("dictionnaire.txt"))
+				);
+		
+		System.out.println("ho");
+		
+		System.out.println("Print Your Message");
+		String message = sn.nextLine();
+		System.out.println();
+			
+		String encode = MS.encoder(message);
+		System.out.println(encode);
+		System.out.println();
+			
+		String decode = MS.decoder(encode);
+		System.out.println(decode);
+		System.out.println("-------------------");
+		
 	}
 }

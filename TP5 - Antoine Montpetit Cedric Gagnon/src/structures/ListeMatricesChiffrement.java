@@ -76,7 +76,7 @@ public class ListeMatricesChiffrement implements iMatrice
 		coefDansZ=pCoefDansZ;
 		matriceCourante=null;
 		listeMatricesCandidates=new ArrayList<int[][]>();
-		genererListeMatrices(new ListeCombinatoire(borneInf, borneSup, (int)Math.pow(dimension,2)));
+		genererListeMatrices(new ListeCombinatoire(borneInf, borneSup, (int)(Math.pow(dimension,2))));
 		choisirMatriceCourante();
 	}
 
@@ -241,10 +241,14 @@ public class ListeMatricesChiffrement implements iMatrice
 		for(int i=0;i<pListe.getTailleListeDeCombinaisons();i++) {
 			int[][] curr=new int[dimension][dimension];
 			for(int j=0;j<pListe.getCombinaison(i).size();j++) {
-				curr[j%dimension][j-dimension*(j%dimension)]=pListe.getCombinaison(i).get(j);
+				curr[(int)(j/dimension)][j%dimension]=pListe.getCombinaison(i).get(j);
+				
 			}
-			if(MathUtilitaires.PGCD(MatriceUtilitaires.getDeterminant(curr),coefDansZ)==1) {
-				listeMatricesCandidates.add(curr);
+			
+			if(MatriceUtilitaires.getDeterminant(curr) != 0) {
+				if (MathUtilitaires.PGCD(MatriceUtilitaires.getDeterminant(curr),coefDansZ)==1) {
+					listeMatricesCandidates.add(curr);
+				}
 			}
 		}
 	}

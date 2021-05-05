@@ -53,7 +53,6 @@ public class VecteurDeCaracteres
 		for(int i=0;i<tabChar.length;i++) {
 			tableCaracteres.add(Character.toUpperCase(tabChar[i]));
 		}
-		System.out.println(tableCaracteres);
 	}
 
 	/**
