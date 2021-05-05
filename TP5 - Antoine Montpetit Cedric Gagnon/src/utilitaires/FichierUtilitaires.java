@@ -1,9 +1,14 @@
 package utilitaires;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FilterInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StreamTokenizer;
 import java.util.SortedSet;
@@ -56,19 +61,12 @@ public class FichierUtilitaires
 	{
 		String out="";
 		try {
-			FileReader input = new FileReader(nomFichier);
-			char curr=' ';
-			int code=0;
-			while (code!=-1 && code!=10) {
-				code=input.read();
-				curr=(char)code;
-				out+=curr;
-			}
+			BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(nomFichier)));
+			out=input.readLine();
 			input.close();
 		}
 		catch(Exception e) {
 		}
-		out=out.length()>0?out.substring(0,out.length()-1):out;
 		return out;
 	}
 
@@ -146,7 +144,7 @@ public class FichierUtilitaires
 	public static void main(String[] args)
 	{
 		//FichierUtilitaires.enregistrerMessage("hello world",new File("test.txt"));
-		//System.out.println(FichierUtilitaires.lireMessage(new File("test.txt")));
+		System.out.println(FichierUtilitaires.lireMessage(new File("test.txt")));
 		//System.out.println(FichierUtilitaires.lireDictionnaire(new File("dictionnaire.txt")));
 		System.out.println(obtenirNomFichier("Entrez le nom du fichier:"));
 	}
