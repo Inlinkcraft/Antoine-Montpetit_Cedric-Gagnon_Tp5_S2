@@ -150,12 +150,10 @@ public class MessageChiffrerDechiffrer implements iCrypto
 		message = ajusterMessageBrute(message, listeMatricesCandidates
 				.getDimension()
 				- (message.length() % listeMatricesCandidates.getDimension()));
-
 		int[][] mat = getMatriceCourante();
 		String[] cuts = new String[message.length()
 				/ listeMatricesCandidates.getDimension()];
-
-		for (int i = 0; i < cuts.length - 1; i++)
+		for (int i = 0; i < cuts.length; i++)
 		{
 			cuts[i] = message.substring(
 					i * listeMatricesCandidates.getDimension(),
@@ -176,7 +174,8 @@ public class MessageChiffrerDechiffrer implements iCrypto
 					charIndex += mat[row][col]
 							* vecCaracteres.getIndice(cuts[i].charAt(col));
 				}
-				charIndex = charIndex % vecCaracteres.getTaille();
+				//System.out.println(charIndex+" % "+vecCaracteres.getTaille()+" = "+MathUtilitaires.modulo(charIndex,vecCaracteres.getTaille()));
+				charIndex = MathUtilitaires.modulo(charIndex, vecCaracteres.getTaille());
 				encode += vecCaracteres.getCaractere(charIndex);
 			}
 		}
