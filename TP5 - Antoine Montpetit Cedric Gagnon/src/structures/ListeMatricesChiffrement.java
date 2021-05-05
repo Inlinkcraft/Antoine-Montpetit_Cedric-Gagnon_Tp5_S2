@@ -2,6 +2,10 @@ package structures;
 
 import java.util.*;
 
+import exceptions.ConstructeurException;
+import utilitaires.MathUtilitaires;
+import utilitaires.MatriceUtilitaires;
+
 /**
  * Classe qui permet de faire la gestion des matrices candidates pour le chiffre
  * de Hill. Les matrices sont produites à partir des combinaisons sans ordre et
@@ -64,6 +68,16 @@ public class ListeMatricesChiffrement implements iMatrice
 	public ListeMatricesChiffrement(int pBorneInf, int pBorneSup,
 			int pDimension, int pCoefDansZ) throws ConstructeurException
 	{
+		if(!(validerBornes(pBorneInf,pBorneSup) && validerDimension(pDimension) && validerCoefDansZ(pCoefDansZ)))
+			throw new ConstructeurException();
+		borneInf=pBorneInf;
+		borneSup=pBorneSup;
+		dimension=pDimension;
+		coefDansZ=pCoefDansZ;
+		matriceCourante=null;
+		listeMatricesCandidates=new ArrayList<int[][]>();
+		genererListeMatrices(new ListeCombinatoire(borneInf, borneSup, (int)Math.pow(dimension,2)));
+		choisirMatriceCourante();
 	}
 
 	public int getBorneInf()
@@ -162,6 +176,10 @@ public class ListeMatricesChiffrement implements iMatrice
 	// TODO choisirMatriceCourante - Compléter le code de la méthode
 	public void choisirMatriceCourante()
 	{
+		if(listeMatricesCandidates.size()!=0) 
+			matriceCourante = listeMatricesCandidates.get((int)(Math.random()*listeMatricesCandidates.size()));
+		else
+			matriceCourante = null;
 	}
 
 	
@@ -169,20 +187,38 @@ public class ListeMatricesChiffrement implements iMatrice
 	// TODO choisirMatriceCourante - Compléter le code de la méthode
 	public void choisirMatriceCourante(int index)
 	{
+		if(index>=0 && index<listeMatricesCandidates.size())
+			matriceCourante = listeMatricesCandidates.get(index);
+		else
+			matriceCourante = null;
 	}
 
 	@Override
 	// TODO getCopieMatriceCourante - Compléter le code de la méthode
 	public int[][] getCopieMatriceCourante()
 	{
-		return null;
+		int[][] nouveau=null;
+		if(matriceCourante!=null) {
+			nouveau = new int[matriceCourante.length][matriceCourante.length];
+			for(int i=0;i<matriceCourante.length;i++) {
+				for(int j=0;j<matriceCourante[i].length;j++) {
+					nouveau[i][j]=matriceCourante[i][j];
+				}
+			}
+		}
+		return(nouveau);
 	}
 
 	@Override
 	// TODO getMatriceCouranteInverseHill - Compléter le code de la méthode
 	public int[][] getMatriceCouranteInverseHill()
 	{
-		return null;
+		int[][] out=null;
+		if(matriceCourante!=null) {
+			int det=MatriceUtilitaires.getDeterminantInverseHill(MatriceUtilitaires.getDeterminant(matriceCourante), coefDansZ);
+			out=MatriceUtilitaires.getMatMultScalaire(getCopieMatriceCourante(), det);
+		}
+		return out;
 	}
 
 	/**
@@ -202,5 +238,14 @@ public class ListeMatricesChiffrement implements iMatrice
 	// TODO genererListeMatrices - Compléter le code de la méthode
 	private void genererListeMatrices(ListeCombinatoire pListe)
 	{
+		for(int i=0;i<pListe.getTailleListeDeCombinaisons();i++) {
+			int[][] curr=new int[dimension][dimension];
+			for(int j=0;j<pListe.getCombinaison(i).size();j++) {
+				curr[j%dimension][j-dimension*(j%dimension)]=pListe.getCombinaison(i).get(j);
+			}
+			if(MathUtilitaires.PGCD(MatriceUtilitaires.getDeterminant(curr),coefDansZ)==1) {
+				listeMatricesCandidates.add(curr);
+			}
+		}
 	}
 }
