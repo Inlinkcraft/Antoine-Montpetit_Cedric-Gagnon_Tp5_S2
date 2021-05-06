@@ -210,8 +210,8 @@ public class MatriceUtilitaires
 			{
 				for (int i = 0; i < mat[0].length; i++)
 				{
-					int sing = i % 2 == 1 ? -1 : 1;
-					determinant += sing * mat[0][i]
+					int sign = i % 2 == 1 ? -1 : 1;
+					determinant += sign * mat[0][i]
 							* getDeterminant(getMatMineur(mat, 0, i));
 				}
 			}
@@ -288,9 +288,8 @@ public class MatriceUtilitaires
 	public static int getDeterminantInverseHill(int valDet, int valMod)
 	{
 		int detInv = 0;
-		SortedSet<Integer> premierEntreEux = MathUtilitaires.xPremierEntreEux(0,
+		SortedSet<Integer> premierEntreEux = MathUtilitaires.xPremierEntreEux(1,
 				valMod);
-
 		Iterator<Integer> it = premierEntreEux.iterator();
 		Integer nb = 0;
 

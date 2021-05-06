@@ -59,7 +59,7 @@ public class MathUtilitaires
 		}
 		else
 		{
-			throw new ArithmeticException();
+			throw new ArithmeticException("pMod = 0");
 		}
 
 		return (value+pMod)%pMod;
@@ -203,7 +203,6 @@ public class MathUtilitaires
 	 */
 	public static SortedSet<Integer> xPremierEntreEux(int valDepart, int valRef)
 	{
-
 		TreeSet<Integer> coprime = new TreeSet<Integer>();
 
 		for (int i = valDepart; i < valRef; i++)
@@ -219,6 +218,7 @@ public class MathUtilitaires
 			coprime = null;
 		}
 
+		//System.out.println(coprime);
 		return coprime;
 	}
 
