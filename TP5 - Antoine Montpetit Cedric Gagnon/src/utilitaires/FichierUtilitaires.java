@@ -1,16 +1,11 @@
 package utilitaires;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FilterInputStream;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.StreamTokenizer;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -85,12 +80,14 @@ public class FichierUtilitaires
 	{
 		SortedSet<String> out=new TreeSet<String>();
 		try {
+			@SuppressWarnings("resource")
 			BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(nomDic)));
 			while(true) {
 				out.add(input.readLine().trim().toLowerCase());
 			}
 		}
-		catch(Exception e) {}
+		catch(Exception e) {
+		}
 		out=(out.size()==0)?null:out;
 		return out;
 	}

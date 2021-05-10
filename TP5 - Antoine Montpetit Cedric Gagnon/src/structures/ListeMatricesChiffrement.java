@@ -101,11 +101,13 @@ public class ListeMatricesChiffrement implements iMatrice
 		return coefDansZ;
 	}
 
+	@SuppressWarnings("unused")
 	private int[][] getMatriceCourante()
 	{
 		return matriceCourante;
 	}
 
+	@SuppressWarnings("unused")
 	private void setBornes(int pBorneInf, int pBorneSup)
 	{
 		boolean ok = validerBornes(pBorneInf = Math.min(pBorneInf, pBorneSup),
@@ -118,6 +120,7 @@ public class ListeMatricesChiffrement implements iMatrice
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void setDimension(int pDimension)
 	{
 		boolean ok = validerDimension(pDimension);
@@ -128,6 +131,7 @@ public class ListeMatricesChiffrement implements iMatrice
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void setCoefDansZ(int pCoefDansZ)
 	{
 		boolean ok = validerCoefDansZ(pCoefDansZ);
@@ -138,6 +142,7 @@ public class ListeMatricesChiffrement implements iMatrice
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void setMatriceCourante(int[][] pMat)
 	{
 		matriceCourante = pMat;
@@ -158,6 +163,7 @@ public class ListeMatricesChiffrement implements iMatrice
 		return (pCoefDansZ > 0);
 	}
 
+	@SuppressWarnings("unused")
 	private boolean validerIndex(int index)
 	{
 		return (index >= 0) && (index < getNombreMatricesCandidates());

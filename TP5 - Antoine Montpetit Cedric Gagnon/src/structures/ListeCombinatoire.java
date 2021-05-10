@@ -67,6 +67,7 @@ public class ListeCombinatoire
 		return longCombinaison;
 	}
 
+	@SuppressWarnings("unused")
 	private List<Integer> getEnsembleValeurs()
 	{
 		return ensembleValeurs;
@@ -77,6 +78,7 @@ public class ListeCombinatoire
 		return listeDeCombinaisons.get(index);
 	}
 
+	@SuppressWarnings("unused")
 	private List<List<Integer>> getListeDeCombinaisons()
 	{
 		return listeDeCombinaisons;
@@ -87,6 +89,7 @@ public class ListeCombinatoire
 		return listeDeCombinaisons.size();
 	}
 
+	@SuppressWarnings("unused")
 	private void setLimitesEns(int pDebutEns, int pFinEns)
 	{
 		// Au besoin, inversion des valeurs pour simplement éviter les
@@ -101,6 +104,7 @@ public class ListeCombinatoire
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void setLongCombinaison(int pLongCombinaison)
 	{
 		boolean ok = validerLongCombinaison(pLongCombinaison,
@@ -112,11 +116,13 @@ public class ListeCombinatoire
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void setEnsembleValeurs(List<Integer> pEnsemble)
 	{
 		this.ensembleValeurs = pEnsemble;
 	}
 
+	@SuppressWarnings("unused")
 	private void setListeDeCombinaisons(List<List<Integer>> listeDeCombinaisons)
 	{
 		this.listeDeCombinaisons = listeDeCombinaisons;

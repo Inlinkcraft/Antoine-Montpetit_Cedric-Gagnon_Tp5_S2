@@ -8,6 +8,11 @@ package exceptions;
 public class ConstructeurException extends RuntimeException
 {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7539875574071609659L;
+
+	/**
 	 * Constructeur
 	 */
 	public ConstructeurException()

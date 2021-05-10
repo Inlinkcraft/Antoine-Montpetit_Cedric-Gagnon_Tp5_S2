@@ -3,12 +3,10 @@ package structures;
 import java.io.File;
 import java.util.Scanner;
 import java.util.SortedSet;
-import java.util.StringTokenizer;
 
 import exceptions.ConstructeurException;
 import utilitaires.FichierUtilitaires;
 import utilitaires.MathUtilitaires;
-import utilitaires.MatriceUtilitaires;
 
 public class MessageChiffrerDechiffrer implements iCrypto
 {
@@ -48,11 +46,12 @@ public class MessageChiffrerDechiffrer implements iCrypto
 		else
 		{
 			throw new ConstructeurException(
-					"Les paramêtre du constructeur sont invalide");
+					"Les paramètres du constructeur sont invalide");
 		}
 
 	}
 
+	@SuppressWarnings("unused")
 	private void setVecCaracteres(VecteurDeCaracteres pVec)
 	{
 		if (validerVecCaracteres(pVec))
@@ -61,6 +60,7 @@ public class MessageChiffrerDechiffrer implements iCrypto
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void setMatsEncodage(ListeMatricesChiffrement listeMats)
 	{
 		if (validerMatsEncodage(listeMats))
@@ -69,6 +69,7 @@ public class MessageChiffrerDechiffrer implements iCrypto
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void setDico(SortedSet<String> dico)
 	{
 		if (validerDico(dico))
@@ -250,6 +251,7 @@ public class MessageChiffrerDechiffrer implements iCrypto
 		String decode = MS.decoder(encode);
 		System.out.println(decode);
 		System.out.println("-------------------");
+		sn.close();
 		
 	}
 }

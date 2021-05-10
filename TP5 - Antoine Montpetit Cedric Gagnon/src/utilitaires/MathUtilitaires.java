@@ -1,6 +1,5 @@
 package utilitaires;
 
-import java.lang.reflect.Array;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
