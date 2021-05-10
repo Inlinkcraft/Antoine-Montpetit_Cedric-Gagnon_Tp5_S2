@@ -78,6 +78,7 @@ public class ListeMatricesChiffrement implements iMatrice
 		listeMatricesCandidates=new ArrayList<int[][]>();
 		genererListeMatrices(new ListeCombinatoire(borneInf, borneSup, (int)(Math.pow(dimension,2))));
 		choisirMatriceCourante();
+		//System.out.println(MatriceUtilitaires.toStringMat(listeMatricesCandidates.get(listeMatricesCandidates.size()-1)));
 	}
 
 	public int getBorneInf()
@@ -215,8 +216,10 @@ public class ListeMatricesChiffrement implements iMatrice
 	{
 		int[][] out=null;
 		if(matriceCourante!=null) {
+		//int[][] matriceCourante = {{1,3,4},{5,6,7},{8,9,10}};
 			int det=MatriceUtilitaires.getDeterminantInverseHill(MatriceUtilitaires.getDeterminant(matriceCourante), coefDansZ);
-			out=MatriceUtilitaires.getMatMultScalaire(getCopieMatriceCourante(), det);
+			out=MatriceUtilitaires.getMatModuloX(MatriceUtilitaires.getMatMultScalaire(MatriceUtilitaires.getMatAdjointe(getCopieMatriceCourante()), det),coefDansZ);
+			
 		}
 		return out;
 	}

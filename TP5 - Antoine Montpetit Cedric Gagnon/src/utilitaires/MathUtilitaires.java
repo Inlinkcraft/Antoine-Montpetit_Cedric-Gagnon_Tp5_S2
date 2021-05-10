@@ -59,10 +59,10 @@ public class MathUtilitaires
 		}
 		else
 		{
-			throw new ArithmeticException();
+			throw new ArithmeticException("pMod = 0");
 		}
 
-		return value;
+		return (value+pMod)%pMod;
 	}
 
 	/**
@@ -158,12 +158,13 @@ public class MathUtilitaires
 	 *
 	 * @return le PGCD ou 0
 	 */
+	//TODO fix this crashing when using negative numbers
 	public static int PGCD(int pVal1, int pVal2)
 	{
 		int nombre = 0;
 
-		int plusPetit = Math.min(pVal1, pVal2);
-		int plusGrand = Math.max(pVal1, pVal2);
+		int plusPetit = Math.abs(Math.min(pVal1, pVal2));
+		int plusGrand = Math.abs(Math.max(pVal1, pVal2));
 
 		int reste = modulo(plusGrand, plusPetit);
 
@@ -202,7 +203,6 @@ public class MathUtilitaires
 	 */
 	public static SortedSet<Integer> xPremierEntreEux(int valDepart, int valRef)
 	{
-
 		TreeSet<Integer> coprime = new TreeSet<Integer>();
 
 		for (int i = valDepart; i < valRef; i++)
@@ -218,6 +218,7 @@ public class MathUtilitaires
 			coprime = null;
 		}
 
+		//System.out.println(coprime);
 		return coprime;
 	}
 
@@ -256,6 +257,11 @@ public class MathUtilitaires
 		return (int) ((MathUtilitaires.fact(nbrElement)
 				/ MathUtilitaires.fact(nbrElement - nbrElementPris))
 				/ MathUtilitaires.fact(nbrElementPris));
+	}
+	
+	public static void main(String[] args)
+	{
+		//System.out.println(MathUtilitaires.modulo(28,-11));
 	}
 
 }
