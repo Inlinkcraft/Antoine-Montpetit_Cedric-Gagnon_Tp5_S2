@@ -47,7 +47,7 @@ public class VecteurDeCaracteres
 	// TODO VecteurDeCaracteres - Compléter le code de la méthode
 	public VecteurDeCaracteres(char[] tabChar) throws ConstructeurException
 	{
-		if(tabChar.length==0)
+		if(tabChar==null || tabChar.length==0)
 			throw new ConstructeurException("Tableau de caractères vide");
 		tableCaracteres=new ArrayList<Character>();
 		for(int i=0;i<tabChar.length;i++) {
