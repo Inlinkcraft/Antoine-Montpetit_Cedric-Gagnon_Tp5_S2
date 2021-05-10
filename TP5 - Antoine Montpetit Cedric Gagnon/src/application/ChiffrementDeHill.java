@@ -47,9 +47,7 @@ public class ChiffrementDeHill extends JPanel implements ActionListener
 	private SortedSet<String> dico = FichierUtilitaires
 			.lireDictionnaire(new File(NOM_FICHIER_DICO));
 	private MessageChiffrerDechiffrer mesChiffrerDechiffrer = null;
-	private String[] proverbes = FichierUtilitaires
-			.lireDictionnaire(new File(NOM_FICHIER_PROVERBES))
-			.toArray(new String[0]);
+	private String[] proverbes = FichierUtilitaires.lireDictionnaire(new File(NOM_FICHIER_PROVERBES)).toArray(new String[0]);
 
 	public ChiffrementDeHill()
 	{
