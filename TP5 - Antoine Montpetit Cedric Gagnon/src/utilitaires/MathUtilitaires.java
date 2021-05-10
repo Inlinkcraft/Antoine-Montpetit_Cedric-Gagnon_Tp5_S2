@@ -91,7 +91,7 @@ public class MathUtilitaires
 				i++;
 
 			}
-			while (i <= Math.sqrt(pVal));
+			while (i <= Math.sqrt(Math.abs(pVal)));
 
 			Object[] diviseursArray = diviseurs.toArray();
 			for (int j = 0; j < diviseursArray.length; j++)
@@ -166,17 +166,18 @@ public class MathUtilitaires
 		int plusPetit = Math.abs(Math.min(pVal1, pVal2));
 		int plusGrand = Math.abs(Math.max(pVal1, pVal2));
 
-		int reste = modulo(plusGrand, plusPetit);
+		if(!(plusPetit==0)) {
+			int reste = modulo(plusGrand, plusPetit);
 
-		if (reste == 0)
-		{
-			nombre = plusPetit;
+			if (reste == 0)
+			{
+				nombre = plusPetit;
+			}
+			else
+			{
+				nombre = PGCD(reste, plusPetit);
+			}
 		}
-		else
-		{
-			nombre = PGCD(reste, plusPetit);
-		}
-
 		return nombre;
 	}
 
