@@ -71,6 +71,18 @@ public class MessageChiffrerDechiffrerTest
 	@Test
 	public void testEncoder()
 	{
+		
+		/*
+		 * 
+		 * Cette méthode ne peut être testé de façons rigoureuse
+		 * car nous n'avons pas acces a la liste de matrice candidate
+		 * qui ce trouve a l'intérieur du messageChiffrerDéchiffrer
+		 * 
+		 * j'ai alors écrit ce code qui ne fait que comparer si la sortie 
+		 * etait suffisament différente
+		 * 
+		 */
+		
 		String m1 = "banane de carrote";
 		String cm1 = mCD1.encoder(m1);
 		int same1 = 0;
