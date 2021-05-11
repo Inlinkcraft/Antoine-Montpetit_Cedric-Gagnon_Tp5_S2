@@ -229,7 +229,6 @@ public class MessageChiffrerDechiffrer implements iCrypto
 	
 	public static void main(String[] args)
 	{	
-		System.out.println("hey");
 		Scanner sn = new Scanner(System.in);
 		MessageChiffrerDechiffrer MS = new MessageChiffrerDechiffrer(
 				new VecteurDeCaracteres(), 
@@ -237,9 +236,6 @@ public class MessageChiffrerDechiffrer implements iCrypto
 				FichierUtilitaires.lireDictionnaire(new File("dictionnaire.txt"))
 				);
 		
-		System.out.println("ho");
-		
-		System.out.println("Print Your Message");
 		String message = sn.nextLine();
 		System.out.println();
 			
