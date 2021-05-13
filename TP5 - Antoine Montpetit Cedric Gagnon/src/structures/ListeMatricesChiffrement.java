@@ -68,17 +68,20 @@ public class ListeMatricesChiffrement implements iMatrice
 	public ListeMatricesChiffrement(int pBorneInf, int pBorneSup,
 			int pDimension, int pCoefDansZ) throws ConstructeurException
 	{
-		if(!(validerBornes(pBorneInf,pBorneSup) && validerDimension(pDimension) && validerCoefDansZ(pCoefDansZ)))
+		if (!(validerBornes(pBorneInf, pBorneSup)
+				&& validerDimension(pDimension)
+				&& validerCoefDansZ(pCoefDansZ)))
 			throw new ConstructeurException();
-		borneInf=pBorneInf;
-		borneSup=pBorneSup;
-		dimension=pDimension;
-		coefDansZ=pCoefDansZ;
-		matriceCourante=null;
-		listeMatricesCandidates=new ArrayList<int[][]>();
-		genererListeMatrices(new ListeCombinatoire(borneInf, borneSup, (int)(Math.pow(dimension,2))));
+		borneInf = pBorneInf;
+		borneSup = pBorneSup;
+		dimension = pDimension;
+		coefDansZ = pCoefDansZ;
+		matriceCourante = null;
+		listeMatricesCandidates = new ArrayList<int[][]>();
+		genererListeMatrices(new ListeCombinatoire(borneInf, borneSup,
+				(int) (Math.pow(dimension, 2))));
 		choisirMatriceCourante();
-		//System.out.println(MatriceUtilitaires.toStringMat(listeMatricesCandidates.get(listeMatricesCandidates.size()-1)));
+		// System.out.println(MatriceUtilitaires.toStringMat(listeMatricesCandidates.get(listeMatricesCandidates.size()-1)));
 	}
 
 	public int getBorneInf()
@@ -183,18 +186,18 @@ public class ListeMatricesChiffrement implements iMatrice
 	// TODO choisirMatriceCourante - Compléter le code de la méthode
 	public void choisirMatriceCourante()
 	{
-		if(listeMatricesCandidates.size()!=0) 
-			matriceCourante = listeMatricesCandidates.get((int)(Math.random()*listeMatricesCandidates.size()));
+		if (listeMatricesCandidates.size() != 0)
+			matriceCourante = listeMatricesCandidates.get(
+					(int) (Math.random() * listeMatricesCandidates.size()));
 		else
 			matriceCourante = null;
 	}
 
-	
 	@Override
 	// TODO choisirMatriceCourante - Compléter le code de la méthode
 	public void choisirMatriceCourante(int index)
 	{
-		if(index>=0 && index<listeMatricesCandidates.size())
+		if (index >= 0 && index < listeMatricesCandidates.size())
 			matriceCourante = listeMatricesCandidates.get(index);
 		else
 			matriceCourante = null;
@@ -204,28 +207,37 @@ public class ListeMatricesChiffrement implements iMatrice
 	// TODO getCopieMatriceCourante - Compléter le code de la méthode
 	public int[][] getCopieMatriceCourante()
 	{
-		int[][] nouveau=null;
-		if(matriceCourante!=null) {
+		int[][] nouveau = null;
+		if (matriceCourante != null)
+		{
 			nouveau = new int[matriceCourante.length][matriceCourante.length];
-			for(int i=0;i<matriceCourante.length;i++) {
-				for(int j=0;j<matriceCourante[i].length;j++) {
-					nouveau[i][j]=matriceCourante[i][j];
+			for (int i = 0; i < matriceCourante.length; i++)
+			{
+				for (int j = 0; j < matriceCourante[i].length; j++)
+				{
+					nouveau[i][j] = matriceCourante[i][j];
 				}
 			}
 		}
-		return(nouveau);
+		return (nouveau);
 	}
 
 	@Override
 	// TODO getMatriceCouranteInverseHill - Compléter le code de la méthode
 	public int[][] getMatriceCouranteInverseHill()
 	{
-		int[][] out=null;
-		if(matriceCourante!=null) {
-		//int[][] matriceCourante = {{1,3,4},{5,6,7},{8,9,10}};
-			int det=MatriceUtilitaires.getDeterminantInverseHill(MatriceUtilitaires.getDeterminant(matriceCourante), coefDansZ);
-			out=MatriceUtilitaires.getMatModuloX(MatriceUtilitaires.getMatMultScalaire(MatriceUtilitaires.getMatAdjointe(getCopieMatriceCourante()), det),coefDansZ);
-			
+		int[][] out = null;
+		if (matriceCourante != null)
+		{
+			// int[][] matriceCourante = {{1,3,4},{5,6,7},{8,9,10}};
+			int det = MatriceUtilitaires.getDeterminantInverseHill(
+					MatriceUtilitaires.getDeterminant(matriceCourante),
+					coefDansZ);
+			out = MatriceUtilitaires.getMatModuloX(
+					MatriceUtilitaires.getMatMultScalaire(MatriceUtilitaires
+							.getMatAdjointe(getCopieMatriceCourante()), det),
+					coefDansZ);
+
 		}
 		return out;
 	}
@@ -233,7 +245,8 @@ public class ListeMatricesChiffrement implements iMatrice
 	/**
 	 * À partir de liste des combinatoires reçue, cette méthode génère les
 	 * matrices qui seront candidates pour le chiffrement de Hill et les place
-	 * dans la liste de matrices candidates. (chaque combinaison devient une matrice)
+	 * dans la liste de matrices candidates. (chaque combinaison devient une
+	 * matrice)
 	 *
 	 * Pour qu'une matrice soit candidate, il faut que la valeur du déterminant
 	 * de la matrice soit premier avec la valeur du coefficient dans Z
@@ -247,15 +260,22 @@ public class ListeMatricesChiffrement implements iMatrice
 	// TODO genererListeMatrices - Compléter le code de la méthode
 	private void genererListeMatrices(ListeCombinatoire pListe)
 	{
-		for(int i=0;i<pListe.getTailleListeDeCombinaisons();i++) {
-			int[][] curr=new int[dimension][dimension];
-			for(int j=0;j<pListe.getCombinaison(i).size();j++) {
-				curr[(int)(j/dimension)][j%dimension]=pListe.getCombinaison(i).get(j);
-				
+		for (int i = 0; i < pListe.getTailleListeDeCombinaisons(); i++)
+		{
+			int[][] curr = new int[dimension][dimension];
+			for (int j = 0; j < pListe.getCombinaison(i).size(); j++)
+			{
+				curr[(int) (j / dimension)][j % dimension] = pListe
+						.getCombinaison(i).get(j);
+
 			}
-			
-			if(MatriceUtilitaires.getDeterminant(curr) != 0) {
-				if (MathUtilitaires.PGCD(MatriceUtilitaires.getDeterminant(curr),coefDansZ)==1) {
+
+			if (MatriceUtilitaires.getDeterminant(curr) != 0)
+			{
+				if (MathUtilitaires.PGCD(
+						MatriceUtilitaires.getDeterminant(curr),
+						coefDansZ) == 1)
+				{
 					listeMatricesCandidates.add(curr);
 				}
 			}

@@ -119,15 +119,15 @@ public class MessageChiffrerDechiffrer implements iCrypto
 			if (!word.equals(" "))
 			{
 				totalWords++;
-				
+
 				if (dico.contains(word.toLowerCase()))
 				{
 					wordsFound++;
-					//System.out.println("added");
+					// System.out.println("added");
 				}
 			}
-			//if(wordsFound!=0 || allWords[0].equals("SALUT"))
-				//System.out.println(wordsFound);
+			// if(wordsFound!=0 || allWords[0].equals("SALUT"))
+			// System.out.println(wordsFound);
 		}
 		return (wordsFound / totalWords) >= pourcentageDeReussite;
 	}
@@ -153,7 +153,7 @@ public class MessageChiffrerDechiffrer implements iCrypto
 				.getDimension()
 				- (message.length() % listeMatricesCandidates.getDimension()));
 		int[][] mat = getMatriceCourante();
-//int[][] mat = {{1,3,4},{5,6,7},{8,9,10}};
+		// int[][] mat = {{1,3,4},{5,6,7},{8,9,10}};
 		String[] cuts = new String[message.length()
 				/ listeMatricesCandidates.getDimension()];
 		for (int i = 0; i < cuts.length; i++)
@@ -173,10 +173,11 @@ public class MessageChiffrerDechiffrer implements iCrypto
 				for (int col = 0; col < listeMatricesCandidates
 						.getDimension(); col++)
 				{
-					charIndex += mat[row][col]
-							* vecCaracteres.getIndice(cuts[i].toUpperCase().charAt(col));
+					charIndex += mat[row][col] * vecCaracteres
+							.getIndice(cuts[i].toUpperCase().charAt(col));
 				}
-				charIndex = MathUtilitaires.modulo(charIndex, vecCaracteres.getTaille());
+				charIndex = MathUtilitaires.modulo(charIndex,
+						vecCaracteres.getTaille());
 				encode += vecCaracteres.getCaractere(charIndex);
 			}
 		}
@@ -190,64 +191,73 @@ public class MessageChiffrerDechiffrer implements iCrypto
 	{
 		String decode = "";
 		boolean found = false;
-		for (int j = 0; j < listeMatricesCandidates.getNombreMatricesCandidates() && found == false; j++)
+		for (int j = 0; j < listeMatricesCandidates
+				.getNombreMatricesCandidates() && found == false; j++)
 		{
 			listeMatricesCandidates.choisirMatriceCourante(j);
-			int[][] inverseMat = listeMatricesCandidates.getMatriceCouranteInverseHill();
-			String[] cuts = new String[message.length()/ listeMatricesCandidates.getDimension()];
-			//if(inverseMat[0][0]==27 && inverseMat[0][1]==2 && inverseMat[1][0]==2)
-				//System.out.println(MatriceUtilitaires.toStringMat(inverseMat));
+			int[][] inverseMat = listeMatricesCandidates
+					.getMatriceCouranteInverseHill();
+			String[] cuts = new String[message.length()
+					/ listeMatricesCandidates.getDimension()];
+			// if(inverseMat[0][0]==27 && inverseMat[0][1]==2 &&
+			// inverseMat[1][0]==2)
+			// System.out.println(MatriceUtilitaires.toStringMat(inverseMat));
 
 			for (int i = 0; i < cuts.length; i++)
 			{
-				cuts[i] = message.substring(i * listeMatricesCandidates.getDimension(),(i + 1) * listeMatricesCandidates.getDimension());
+				cuts[i] = message.substring(
+						i * listeMatricesCandidates.getDimension(),
+						(i + 1) * listeMatricesCandidates.getDimension());
 			}
 
 			decode = "";
 			for (int i = 0; i < cuts.length; i++)
 			{
-				for (int row = 0; row < listeMatricesCandidates.getDimension(); row++)
+				for (int row = 0; row < listeMatricesCandidates
+						.getDimension(); row++)
 				{
 					int charIndex = 0;
-					for (int col = 0; col < listeMatricesCandidates.getDimension(); col++)
+					for (int col = 0; col < listeMatricesCandidates
+							.getDimension(); col++)
 					{
-						charIndex += inverseMat[row][col] * vecCaracteres.getIndice(cuts[i].charAt(col));
+						charIndex += inverseMat[row][col]
+								* vecCaracteres.getIndice(cuts[i].charAt(col));
 					}
-					
+
 					charIndex = charIndex % vecCaracteres.getTaille();
 					decode += vecCaracteres.getCaractere(charIndex);
 				}
 			}
-			
+
 			found = validerMessageSelonDico(decode, POURCENTAGE_ACCEPTABLE);
-			//if(inverseMat[0][0]==27 && inverseMat[0][1]==2 && inverseMat[1][0]==2)
-				//System.out.println(decode);
+			// if(inverseMat[0][0]==27 && inverseMat[0][1]==2 &&
+			// inverseMat[1][0]==2)
+			// System.out.println(decode);
 		}
-		//System.out.println(MatriceUtilitaires.toStringMat(getMatriceCourante())+found);
+		// System.out.println(MatriceUtilitaires.toStringMat(getMatriceCourante())+found);
 		return decode;
 	}
-	
+
 	public static void main(String[] args)
-	{	
+	{
 		Scanner sn = new Scanner(System.in);
 		MessageChiffrerDechiffrer MS = new MessageChiffrerDechiffrer(
-				new VecteurDeCaracteres(), 
-				new ListeMatricesChiffrement(1, 15, 3, 28),
-				FichierUtilitaires.lireDictionnaire(new File("dictionnaire.txt"))
-				);
-		
+				new VecteurDeCaracteres(),
+				new ListeMatricesChiffrement(1, 15, 3, 28), FichierUtilitaires
+						.lireDictionnaire(new File("dictionnaire.txt")));
+
 		String message = sn.nextLine();
 		System.out.println();
-			
+
 		String encode = MS.encoder(message);
 		System.out.println(encode);
 		System.out.println();
 		sn.nextLine();
-			
+
 		String decode = MS.decoder(encode);
 		System.out.println(decode);
 		System.out.println("-------------------");
 		sn.close();
-		
+
 	}
 }

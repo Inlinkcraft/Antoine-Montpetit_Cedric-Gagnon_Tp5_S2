@@ -47,10 +47,11 @@ public class VecteurDeCaracteres
 	// TODO VecteurDeCaracteres - Compléter le code de la méthode
 	public VecteurDeCaracteres(char[] tabChar) throws ConstructeurException
 	{
-		if(tabChar==null || tabChar.length==0)
+		if (tabChar == null || tabChar.length == 0)
 			throw new ConstructeurException("Tableau de caractères vide");
-		tableCaracteres=new ArrayList<Character>();
-		for(int i=0;i<tabChar.length;i++) {
+		tableCaracteres = new ArrayList<Character>();
+		for (int i = 0; i < tabChar.length; i++)
+		{
 			tableCaracteres.add(Character.toUpperCase(tabChar[i]));
 		}
 	}
@@ -71,7 +72,7 @@ public class VecteurDeCaracteres
 	}
 
 	/**
-	 * Retourne l'indice, dans le vecteur de caractères, du caractère reçu 
+	 * Retourne l'indice, dans le vecteur de caractères, du caractère reçu
 	 *
 	 * @param car le caractère à trouver
 	 *
@@ -80,10 +81,11 @@ public class VecteurDeCaracteres
 	// TODO getIndice - Compléter le code de la méthode
 	public int getIndice(char car)
 	{
-		int index=-1;
-		for(int i=0;i<tableCaracteres.size() && index==-1;i++) {
-			if(tableCaracteres.get(i).equals(car)) 
-				index=i;
+		int index = -1;
+		for (int i = 0; i < tableCaracteres.size() && index == -1; i++)
+		{
+			if (tableCaracteres.get(i).equals(car))
+				index = i;
 		}
 		return index;
 	}
@@ -100,8 +102,8 @@ public class VecteurDeCaracteres
 	}
 
 	/**
-	 * Permet de construire une chaîne de caractères structurée pour afficher les
-	 * infos d'un objet VecteurDeCaracteres
+	 * Permet de construire une chaîne de caractères structurée pour afficher
+	 * les infos d'un objet VecteurDeCaracteres
 	 *
 	 * <pre>
 	 * Exemple de sortie voulue:
@@ -114,9 +116,10 @@ public class VecteurDeCaracteres
 	{
 		return "Table de correspondance = " + this.tableCaracteres;
 	}
-	
+
 	public static void main(String[] args)
 	{
-		//VecteurDeCaracteres test = new VecteurDeCaracteres(new char[]{'a','1','√'});
+		// VecteurDeCaracteres test = new VecteurDeCaracteres(new
+		// char[]{'a','1','√'});
 	}
 }

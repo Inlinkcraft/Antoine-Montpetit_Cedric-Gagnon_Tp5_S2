@@ -41,15 +41,19 @@ public class ListeCombinatoire
 	public ListeCombinatoire(int pValDebut, int pValFin, int pLongCombinaison)
 			throws ConstructeurException
 	{
-		if(!(validerLimitesEns(pValDebut,pValFin) && validerLongCombinaison(pLongCombinaison,pValFin-pValDebut+1))) {
-			throw new ConstructeurException("Construction invalide de liste combinatoire");
+		if (!(validerLimitesEns(pValDebut, pValFin) && validerLongCombinaison(
+				pLongCombinaison, pValFin - pValDebut + 1)))
+		{
+			throw new ConstructeurException(
+					"Construction invalide de liste combinatoire");
 		}
-		debutEns=Math.min(pValDebut,pValFin);
-		finEns=Math.max(pValDebut,pValFin);
-		longCombinaison=pLongCombinaison;
-		ensembleValeurs=genererEnsembleValeurs();
+		debutEns = Math.min(pValDebut, pValFin);
+		finEns = Math.max(pValDebut, pValFin);
+		longCombinaison = pLongCombinaison;
+		ensembleValeurs = genererEnsembleValeurs();
 		listeDeCombinaisons = new ArrayList<List<Integer>>();
-		produireListeCombinaisons(ensembleValeurs,longCombinaison,new ArrayList<Integer>());
+		produireListeCombinaisons(ensembleValeurs, longCombinaison,
+				new ArrayList<Integer>());
 	}
 
 	public int getDebutEns()
@@ -154,7 +158,8 @@ public class ListeCombinatoire
 	public List<Integer> genererEnsembleValeurs()
 	{
 		ArrayList<Integer> out = new ArrayList<Integer>();
-		for(int i=debutEns;i<finEns+1;i++) {
+		for (int i = debutEns; i < finEns + 1; i++)
+		{
 			out.add(i);
 		}
 		return out;
@@ -218,18 +223,19 @@ public class ListeCombinatoire
 	@Override
 	public String toString()
 	{
-		return ("Limite de l'ensemble : [" + debutEns + ", " + finEns + "]\n"+
-				"Longueur combinaison : " + longCombinaison + "\n" + 
-				"Ensemble : " + ensembleValeurs + "\n" + 
-				"Voici les " + listeDeCombinaisons.size() + " combinaisons : " + listeDeCombinaisons
-				);
+		return ("Limite de l'ensemble : [" + debutEns + ", " + finEns + "]\n"
+				+ "Longueur combinaison : " + longCombinaison + "\n"
+				+ "Ensemble : " + ensembleValeurs + "\n" + "Voici les "
+				+ listeDeCombinaisons.size() + " combinaisons : "
+				+ listeDeCombinaisons);
 	}
-	
+
 	public static void main(String[] args)
 	{
-		ListeCombinatoire test = new ListeCombinatoire(1,5,3);
+		ListeCombinatoire test = new ListeCombinatoire(1, 5, 3);
 		System.out.println(test);
-		//test.produireListeCombinaisons(test.ensembleValeurs, 5, new ArrayList<Integer>());
-		//System.out.println(test.listeDeCombinaisons);
+		// test.produireListeCombinaisons(test.ensembleValeurs, 5, new
+		// ArrayList<Integer>());
+		// System.out.println(test.listeDeCombinaisons);
 	}
 }

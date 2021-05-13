@@ -11,53 +11,76 @@ import structures.VecteurDeCaracteres;
 import utilitaires.MatriceUtilitaires;
 import structures.MessageChiffrerDechiffrer;
 
-public class MessageChiffrerDechiffrer_SimpleTest {
+public class MessageChiffrerDechiffrer_SimpleTest
+{
 	private static final int MIN = 1;
 	private static final int MAX = 20;
 	private static final int DIM_MAT = 4;
 
 	private static VecteurDeCaracteres vecCaracteres = new VecteurDeCaracteres();
 	private static ListeMatricesChiffrement listeDeMatricesCandidates = null;
-	private static SortedSet<String> dico = FichierUtilitaires.lireDictionnaire(new File("dictionnaire.txt"));
+	private static SortedSet<String> dico = FichierUtilitaires
+			.lireDictionnaire(new File("dictionnaire.txt"));
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		String message = "";
 		MessageChiffrerDechiffrer mesChiffrerDechiffrer = null;
 
-		if ((message = InputUtilitaires.saisirString("Entrez un message à chiffrer (sans accent)",
-				"Saisir message")) != null) {
+		if ((message = InputUtilitaires.saisirString(
+				"Entrez un message à chiffrer (sans accent)",
+				"Saisir message")) != null)
+		{
 
-			listeDeMatricesCandidates = new ListeMatricesChiffrement(MIN, MAX, DIM_MAT, vecCaracteres.getTaille());
+			listeDeMatricesCandidates = new ListeMatricesChiffrement(MIN, MAX,
+					DIM_MAT, vecCaracteres.getTaille());
 
-			mesChiffrerDechiffrer = new MessageChiffrerDechiffrer(vecCaracteres, listeDeMatricesCandidates, dico);
+			mesChiffrerDechiffrer = new MessageChiffrerDechiffrer(vecCaracteres,
+					listeDeMatricesCandidates, dico);
 
-			System.out.println("Vecteur de caractères utilisé : " + vecCaracteres);
-			System.out.println("Nombre de matrices " + listeDeMatricesCandidates.getDimension() + " X "
-					+ listeDeMatricesCandidates.getDimension() + " candidates : "
+			System.out.println(
+					"Vecteur de caractères utilisé : " + vecCaracteres);
+			System.out.println("Nombre de matrices "
+					+ listeDeMatricesCandidates.getDimension() + " X "
+					+ listeDeMatricesCandidates.getDimension()
+					+ " candidates : "
 					+ listeDeMatricesCandidates.getNombreMatricesCandidates());
 
 			System.out.println();
-			System.out.println(
-					"Message à chiffrer : [" + message + "] - d'une longueur de " + message.length() + " caractères.");
+			System.out.println("Message à chiffrer : [" + message
+					+ "] - d'une longueur de " + message.length()
+					+ " caractères.");
 
 			System.out.println();
 			message = mesChiffrerDechiffrer.encoder(message);
-			System.out.println("Matrice choisie au hasard, pour le chiffrement, parmi les matrices candidates :\n"
-					+ MatriceUtilitaires.toStringMat(mesChiffrerDechiffrer.getMatriceCourante()));
 			System.out.println(
-					"Message encodé: [" + message + "] - d'une longueur de " + message.length() + " caractères.");
+					"Matrice choisie au hasard, pour le chiffrement, parmi les matrices candidates :\n"
+							+ MatriceUtilitaires
+									.toStringMat(mesChiffrerDechiffrer
+											.getMatriceCourante()));
+			System.out.println(
+					"Message encodé: [" + message + "] - d'une longueur de "
+							+ message.length() + " caractères.");
 
 			System.out.println();
-			if ((message = mesChiffrerDechiffrer.decoder(message)) != null) {
-				System.out.println("Matrice trouvée, pour le déchiffrement, parmi les matrices candidates :\n"
-						+ MatriceUtilitaires.toStringMat(mesChiffrerDechiffrer.getMatriceCourante()));
+			if ((message = mesChiffrerDechiffrer.decoder(message)) != null)
+			{
+				System.out.println(
+						"Matrice trouvée, pour le déchiffrement, parmi les matrices candidates :\n"
+								+ MatriceUtilitaires
+										.toStringMat(mesChiffrerDechiffrer
+												.getMatriceCourante()));
 
 				System.out.println(
-						"Message decodé: [" + message + "] - d'une longueur de " + message.length() + " caractères.");
-			} else
-				System.out.println("Aucune matrice trouvée pour déchiffrer le message...");
+						"Message decodé: [" + message + "] - d'une longueur de "
+								+ message.length() + " caractères.");
+			}
+			else
+				System.out.println(
+						"Aucune matrice trouvée pour déchiffrer le message...");
 
-		} else
+		}
+		else
 			System.out.println("Aucun message à chiffrer...");
 	}
 

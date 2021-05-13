@@ -201,19 +201,21 @@ public class MatriceUtilitaires
 			{
 				determinant = mat[0][0];
 			}
-			else if (mat.length == 2)
-			{
-				determinant = (mat[0][0] * mat[1][1]) - (mat[1][0] * mat[0][1]);
-			}
 			else
-			{
-				for (int i = 0; i < mat[0].length; i++)
+				if (mat.length == 2)
 				{
-					int sign = i % 2 == 1 ? -1 : 1;
-					determinant += sign * mat[0][i]
-							* getDeterminant(getMatMineur(mat, 0, i));
+					determinant = (mat[0][0] * mat[1][1])
+							- (mat[1][0] * mat[0][1]);
 				}
-			}
+				else
+				{
+					for (int i = 0; i < mat[0].length; i++)
+					{
+						int sign = i % 2 == 1 ? -1 : 1;
+						determinant += sign * mat[0][i]
+								* getDeterminant(getMatMineur(mat, 0, i));
+					}
+				}
 		}
 
 		return determinant;
@@ -238,25 +240,26 @@ public class MatriceUtilitaires
 			{
 				cofMat[0][0] = mat[0][0];
 			}
-			else if (mat.length == 2)
-			{
-				cofMat[0][0] = mat[1][1];
-				cofMat[1][1] = mat[0][0];
-				cofMat[0][1] = -mat[1][0];
-				cofMat[1][0] = -mat[0][1];
-			}
 			else
-			{
-				for (int i = 0; i < mat.length; i++)
+				if (mat.length == 2)
 				{
-					for (int j = 0; j < mat[0].length; j++)
+					cofMat[0][0] = mat[1][1];
+					cofMat[1][1] = mat[0][0];
+					cofMat[0][1] = -mat[1][0];
+					cofMat[1][0] = -mat[0][1];
+				}
+				else
+				{
+					for (int i = 0; i < mat.length; i++)
 					{
-						int sing = (int) Math.pow(-1, i + j);
-						cofMat[i][j] = sing
-								* getDeterminant(getMatMineur(mat, i, j));
+						for (int j = 0; j < mat[0].length; j++)
+						{
+							int sing = (int) Math.pow(-1, i + j);
+							cofMat[i][j] = sing
+									* getDeterminant(getMatMineur(mat, i, j));
+						}
 					}
 				}
-			}
 		}
 
 		return cofMat;

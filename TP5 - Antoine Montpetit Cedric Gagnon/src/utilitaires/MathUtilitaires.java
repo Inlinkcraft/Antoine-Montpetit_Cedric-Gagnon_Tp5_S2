@@ -61,7 +61,7 @@ public class MathUtilitaires
 			throw new ArithmeticException("pMod = 0");
 		}
 
-		return (value+pMod)%pMod;
+		return (value + pMod) % pMod;
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class MathUtilitaires
 	 *
 	 * @return le PGCD ou 0
 	 */
-	//TODO fix this crashing when using negative numbers
+	// TODO fix this crashing when using negative numbers
 	public static int PGCD(int pVal1, int pVal2)
 	{
 		int nombre = 0;
@@ -165,7 +165,8 @@ public class MathUtilitaires
 		int plusPetit = Math.abs(Math.min(pVal1, pVal2));
 		int plusGrand = Math.abs(Math.max(pVal1, pVal2));
 
-		if(!(plusPetit==0)) {
+		if (!(plusPetit == 0))
+		{
 			int reste = modulo(plusGrand, plusPetit);
 
 			if (reste == 0)
@@ -218,7 +219,7 @@ public class MathUtilitaires
 			coprime = null;
 		}
 
-		//System.out.println(coprime);
+		// System.out.println(coprime);
 		return coprime;
 	}
 
@@ -258,10 +259,10 @@ public class MathUtilitaires
 				/ MathUtilitaires.fact(nbrElement - nbrElementPris))
 				/ MathUtilitaires.fact(nbrElementPris));
 	}
-	
+
 	public static void main(String[] args)
 	{
-		//System.out.println(MathUtilitaires.modulo(28,-11));
+		// System.out.println(MathUtilitaires.modulo(28,-11));
 	}
 
 }

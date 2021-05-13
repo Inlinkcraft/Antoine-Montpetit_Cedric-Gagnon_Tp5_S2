@@ -31,17 +31,20 @@ public class FichierUtilitaires
 	// TODO enregistrerMessage - Compléter le code de la méthode
 	public static boolean enregistrerMessage(String message, File nomFichier)
 	{
-		boolean success=true;
-		try {
-			PrintWriter output = new PrintWriter(new FileOutputStream(nomFichier,true),true);
+		boolean success = true;
+		try
+		{
+			PrintWriter output = new PrintWriter(
+					new FileOutputStream(nomFichier, true), true);
 			output.println(message);
 			output.close();
 		}
-		catch(Exception e) {
-			success=false;
+		catch (Exception e)
+		{
+			success = false;
 		}
-		
-		return(success);
+
+		return (success);
 	}
 
 	/**
@@ -54,13 +57,16 @@ public class FichierUtilitaires
 	// TODO lireMessage - Compléter le code de la méthode
 	public static String lireMessage(File nomFichier)
 	{
-		String out="";
-		try {
-			BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(nomFichier)));
-			out=input.readLine();
+		String out = "";
+		try
+		{
+			BufferedReader input = new BufferedReader(
+					new InputStreamReader(new FileInputStream(nomFichier)));
+			out = input.readLine();
 			input.close();
 		}
-		catch(Exception e) {
+		catch (Exception e)
+		{
 		}
 		return out;
 	}
@@ -72,23 +78,27 @@ public class FichierUtilitaires
 	 *
 	 * @param nomFichier le nom du fichier dictionnaire
 	 *
-	 * @return un SortedSet des mots du dictionnaire ou null s'il n'y a pas de mot
-	 *         dans le fichier.
+	 * @return un SortedSet des mots du dictionnaire ou null s'il n'y a pas de
+	 *         mot dans le fichier.
 	 */
 	// TODO lireDictionnaire - Compléter le code de la méthode
 	public static SortedSet<String> lireDictionnaire(File nomDic)
 	{
-		SortedSet<String> out=new TreeSet<String>();
-		try {
+		SortedSet<String> out = new TreeSet<String>();
+		try
+		{
 			@SuppressWarnings("resource")
-			BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(nomDic)));
-			while(true) {
+			BufferedReader input = new BufferedReader(
+					new InputStreamReader(new FileInputStream(nomDic)));
+			while (true)
+			{
 				out.add(input.readLine().trim().toLowerCase());
 			}
 		}
-		catch(Exception e) {
+		catch (Exception e)
+		{
 		}
-		out=(out.size()==0)?null:out;
+		out = (out.size() == 0) ? null : out;
 		return out;
 	}
 
@@ -103,11 +113,11 @@ public class FichierUtilitaires
 	// TODO obtenirNomFichier - Compléter le code de la méthode
 	public static File obtenirNomFichier(String option)
 	{
-		File out=obtenirNomFichier(option, new File(""));
-		//String value=InputUtilitaires.saisirString(option);
-		//File out=null;
-		//if(value!="")
-		//	out=new File(value);
+		File out = obtenirNomFichier(option, new File(""));
+		// String value=InputUtilitaires.saisirString(option);
+		// File out=null;
+		// if(value!="")
+		// out=new File(value);
 		return out;
 	}
 
@@ -131,12 +141,15 @@ public class FichierUtilitaires
 
 		return f;
 	}
-	
+
 	public static void main(String[] args)
 	{
-		//FichierUtilitaires.enregistrerMessage("hello world",new File("test.txt"));
-		//System.out.println(FichierUtilitaires.lireMessage(new File("test.txt")));
-		//System.out.println(FichierUtilitaires.lireDictionnaire(new File("dictionnaire.txt")));
+		// FichierUtilitaires.enregistrerMessage("hello world",new
+		// File("test.txt"));
+		// System.out.println(FichierUtilitaires.lireMessage(new
+		// File("test.txt")));
+		// System.out.println(FichierUtilitaires.lireDictionnaire(new
+		// File("dictionnaire.txt")));
 		System.out.println(obtenirNomFichier("Sélectionner Fichier"));
 	}
 }

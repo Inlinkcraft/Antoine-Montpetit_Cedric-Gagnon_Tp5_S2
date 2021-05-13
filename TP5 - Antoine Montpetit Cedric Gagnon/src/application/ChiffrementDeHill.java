@@ -47,7 +47,9 @@ public class ChiffrementDeHill extends JPanel implements ActionListener
 	private SortedSet<String> dico = FichierUtilitaires
 			.lireDictionnaire(new File(NOM_FICHIER_DICO));
 	private MessageChiffrerDechiffrer mesChiffrerDechiffrer = null;
-	private String[] proverbes = FichierUtilitaires.lireDictionnaire(new File(NOM_FICHIER_PROVERBES)).toArray(new String[0]);
+	private String[] proverbes = FichierUtilitaires
+			.lireDictionnaire(new File(NOM_FICHIER_PROVERBES))
+			.toArray(new String[0]);
 
 	public ChiffrementDeHill()
 	{
@@ -150,30 +152,36 @@ public class ChiffrementDeHill extends JPanel implements ActionListener
 		{
 			gestionOuvrirMessageGris();
 		}
-		else if (command.equals("Enregistrer sous message gris..."))
-		{
-			gestionEnregistrerSousMessageGris();
-		}
-		else if (command.equals("Chiffrement sans saisie"))
-		{
-			gestionChiffrementSansSaisie();
-		}
-		else if (command.equals("Chiffrement avec saisie..."))
-		{
-			gestionChiffrementAvecSaisie();
-		}
-		else if (command.equals("Dechiffrement"))
-		{
-			gestionDechiffrement();
-		}
-		else if (command.equals("Vider zone de texte"))
-		{
-			gestionViderOutput();
-		}
-		else if (command.equals("Quitter"))
-		{
-			gestionQuitter(); // System.exit(0);
-		}
+		else
+			if (command.equals("Enregistrer sous message gris..."))
+			{
+				gestionEnregistrerSousMessageGris();
+			}
+			else
+				if (command.equals("Chiffrement sans saisie"))
+				{
+					gestionChiffrementSansSaisie();
+				}
+				else
+					if (command.equals("Chiffrement avec saisie..."))
+					{
+						gestionChiffrementAvecSaisie();
+					}
+					else
+						if (command.equals("Dechiffrement"))
+						{
+							gestionDechiffrement();
+						}
+						else
+							if (command.equals("Vider zone de texte"))
+							{
+								gestionViderOutput();
+							}
+							else
+								if (command.equals("Quitter"))
+								{
+									gestionQuitter(); // System.exit(0);
+								}
 
 		afficherOutput();
 	}
@@ -297,7 +305,8 @@ public class ChiffrementDeHill extends JPanel implements ActionListener
 		{
 			this.messageBlanc = this.messageBlanc.trim().toLowerCase();
 			this.messageGris = this.mesChiffrerDechiffrer.encoder(messageBlanc);
-			this.sortieHTML += messageTitre("--- Opération de chiffrement avec saisie...");
+			this.sortieHTML += messageTitre(
+					"--- Opération de chiffrement avec saisie...");
 		}
 		else
 		{
@@ -344,7 +353,7 @@ public class ChiffrementDeHill extends JPanel implements ActionListener
 		this.sortieHTML += messageInfo(
 				"<b>Message gris : </b>[" + this.messageGris + "]") + "<br />";
 	}
-	
+
 	private void ajouterASortieHTML2()
 	{
 		this.sortieHTML += messageInfo(
@@ -352,7 +361,7 @@ public class ChiffrementDeHill extends JPanel implements ActionListener
 		this.sortieHTML += messageInfo(
 				"<b>Message blanc : </b>[" + this.messageBlanc + "]")
 				+ "<br />";
-		
+
 	}
 
 	private String messageTitre(String message)
