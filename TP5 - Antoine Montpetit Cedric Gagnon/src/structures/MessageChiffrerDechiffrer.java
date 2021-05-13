@@ -21,13 +21,13 @@ public class MessageChiffrerDechiffrer implements iCrypto
 	/**
 	 * Constructeur, permet d'affecter les différents attributs à partir des
 	 * objets reçus en entrée. Avant d'affecter les attributs de la classe avec
-	 * les objets reçus en entrée, il faut valider ces derniers (<> null et pas
+	 * les objets reçus en entrée, il faut valider ces derniers (&lt;&gt; null et pas
 	 * vide).
 	 *
 	 * @param vecCars la table de caractères pour la correspondance lors de
 	 *            l'encodage et du décodage.
 	 * @param listeMats liste des matrices candidates.
-	 * @param dico liste des mots pour la validation lors du décodage.
+	 * @param _dico liste des mots pour la validation lors du décodage.
 	 *
 	 * @throws ConstructeurException
 	 */

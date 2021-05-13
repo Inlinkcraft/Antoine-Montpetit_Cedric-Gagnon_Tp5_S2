@@ -174,8 +174,6 @@ public class ListeMatricesChiffrement implements iMatrice
 
 	/**
 	 * Obtenir le nombre de matrices candidates pour le chiffrement
-	 *
-	 * @param le nombre de matrices candidates
 	 */
 	public int getNombreMatricesCandidates()
 	{

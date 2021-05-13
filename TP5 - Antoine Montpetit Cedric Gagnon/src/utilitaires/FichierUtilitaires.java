@@ -76,7 +76,7 @@ public class FichierUtilitaires
 	 * mot doit être mis en minuscule et on doit enlever les espaces de chaque
 	 * bout (voir la classe String). Il faut aussi éliminer les doublons.
 	 *
-	 * @param nomFichier le nom du fichier dictionnaire
+	 * @param nomDic le nom du fichier dictionnaire
 	 *
 	 * @return un SortedSet des mots du dictionnaire ou null s'il n'y a pas de
 	 *         mot dans le fichier.
@@ -126,7 +126,7 @@ public class FichierUtilitaires
 	 * dialogue graphique.
 	 *
 	 * @param option: le nom du bouton principal
-	 * @param le nom du fichier pré-sélectionné
+	 * @param fichier le nom du fichier pré-sélectionné
 	 *
 	 * @return un File, le fichier sélectionné ou null
 	 */

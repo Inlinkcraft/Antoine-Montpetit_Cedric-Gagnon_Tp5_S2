@@ -12,7 +12,7 @@ public class MathUtilitaires
 {
 
 	/**
-	 * Calcul de la factorielle d'une valeur > ou = à 1. Doit être récursif.
+	 * Calcul de la factorielle d'une valeur &gt; ou = à 1. Doit être récursif.
 	 *
 	 * @param valFact la valeur
 	 *

@@ -42,6 +42,8 @@ public class VecteurDeCaracteres
 	 * "char" reçu. Met tous les caractères en majuscule. Il faut que le tableau
 	 * de caractères contienne au moins 1 caractère.
 	 * 
+	 * @param tabChar : tableau de caractères à utiliser
+	 * 
 	 * @throws ConstructeurException si tabChar est invalide
 	 */
 	// TODO VecteurDeCaracteres - Compléter le code de la méthode

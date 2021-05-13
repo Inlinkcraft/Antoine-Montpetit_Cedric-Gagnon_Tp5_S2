@@ -11,7 +11,7 @@ public interface iCrypto
 	 * @param message le message à valider.
 	 * @param pourcentageDeReussite le pourcentage de réussite voulue.
 	 *
-	 * @return vrai si la concordance du message est >= au pourcentage reçu et
+	 * @return vrai si la concordance du message est &gt;= au pourcentage reçu et
 	 *         faux sinon.
 	 */
 	public boolean validerMessageSelonDico(String message,
@@ -23,7 +23,7 @@ public interface iCrypto
 	 * qu'il faut pour obtenir le bon résultat.
 	 *
 	 * @param message le message à ajuster
-	 * @param diviseur la valeur du diviseur pour établir la nouvelle longueur
+	 * @param longVoulue la valeur du diviseur pour établir la nouvelle longueur
 	 *
 	 * @return le message ajusté
 	 */
@@ -36,7 +36,7 @@ public interface iCrypto
 	 * terminer elle encode le message selon le chiffrement de Hill à l'aide de
 	 * la copie de la matrice choisie.
 	 *
-	 * @param le message à chiffrer.
+	 * @param message le message à chiffrer.
 	 *
 	 * @return le message chiffré.
 	 */
@@ -53,7 +53,7 @@ public interface iCrypto
 	 * la prochaine matrice candidate. Si aucune matrice n'est trouvée la
 	 * méthode retourne null.
 	 *
-	 * @param le message à déchiffrer.
+	 * @param message le message à déchiffrer.
 	 *
 	 * @return le message déchiffré ou null.
 	 */
